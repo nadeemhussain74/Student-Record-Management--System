@@ -8,5 +8,5 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
-Route::get('/saveStudent/getAllStudent',[SudentController::class, 'index']);
+Route::get('/saveStudent/ge tAllStudent',[SudentController::class, 'index']);
 Route::post('/saveStudent',[SudentController::class, 'store']);
