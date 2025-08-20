@@ -15,16 +15,11 @@ class SudentController extends Controller
     {
         
         try {
-            return response()->json([
-            ['id' => 1, 'first_name' => 'Rashid','last_name' => 'Ali'],
-           
-            ['id' => 2, 'first_name' => 'Adnam','last_name' => 'Ali'],
-            
-        ]);
-            // $studentList = Student::all();
-            // return response()->json($studentList, 200);
+       
+            $studentList = Student::all();
+            return response()->json($studentList, 200);
         } catch (Exception $th) {
-            //throw $th;
+            return response()->json($th->getMessage(), 500);
         }
     }
 
@@ -41,16 +36,9 @@ class SudentController extends Controller
                 'first_name' => $request->input('first_name'),
                 'last_name' => $request->input('last_name')
             ]);
-            //return response()->json($student, 201);
-            return response()->json([
-        'message' => 'Student saved successfully!',
-        'data' => [
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name'),
-        ],
-    ], 201);
-        } catch (\Throwable $th) {
-           throw $th;
+            return response()->json($student, 201);
+        } catch (Exception $ex) {
+           return response()->json($ex->getMessage(), 500);
         }
     }
 
