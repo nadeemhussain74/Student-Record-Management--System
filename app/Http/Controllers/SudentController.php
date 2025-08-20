@@ -19,6 +19,9 @@ class SudentController extends Controller
             ['id' => 1, 'first_name' => 'Rashid','last_name' => 'Ali'],
            
             ['id' => 2, 'first_name' => 'Adnam','last_name' => 'Ali'],
+            ['id' => 3, 'first_name' => 'Ishfaque','last_name' => 'Ali'],
+            ['id' => 4, 'first_name' => 'Zain','last_name' => 'Ali'],
+            ['id' => 5, 'first_name' => 'Zamin','last_name' => 'Ali'],
             
         ]);
             // $studentList = Student::all();
@@ -34,6 +37,7 @@ class SudentController extends Controller
     public function store(Request $request)
     {
         try {
+            
             $request->validate([
                 'first_name' => 'required|string'
             ]);
@@ -59,7 +63,19 @@ class SudentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+        $student = Student::findOrFail($id); // Try to find student by ID
+
+        return response()->json([
+            'message' => 'Student retrieved successfully!',
+            'data' => $student,
+        ]);
+    } catch (\Throwable $th) {
+        return response()->json([
+            'message' => 'Student not found',
+            'error' => $th->getMessage(),
+        ], 404);
+    }
     }
 
     /**
@@ -67,16 +83,59 @@ class SudentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try{
+            $request->validate([
+                'first_name' => 'required|string',
+                'last_name'  => 'required|string'
+            ]);
+
+            $student = Student::findOrFail($id);
+            $student->update([
+                'first_name' => $request->input('first_name'),
+                'last_name' => $request->input('last_name'),
+            ]);
+            return response()->json([
+                'message' => 'Student updated sucessfully!',
+                'data' => $student,
+
+            ]);
+
+        }catch(\Throwable $th){
+            return response()->json([
+                'message' => 'Failed to updated student',
+                'error' => $th ->getMessage(),
+            ], 500);
+
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+
+    public function destroy($id)
+{
+    try {
+        $student = Student::findOrFail($id);
+        $student->delete();
+
+        return response()->json([
+            'message' => 'Student deleted successfully!',
+            'data' => $student,
+            
+        ]);
+    } catch (\Throwable $th) {
+        return response()->json([
+            'message' => 'Failed to delete student',
+            'error' => $th->getMessage(),
+        ], 500);
     }
+}
+
+    // public function destroy(string $id)
+    // {
+    //     //
+    // }
 
    }
 
