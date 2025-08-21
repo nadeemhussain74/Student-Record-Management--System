@@ -10,3 +10,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/getAllStudent',[SudentController::class, 'index']);
 Route::post('/saveStudent',[SudentController::class, 'store']);
+Route::put('/student/{id}',[SudentController::class, 'update']);
+Route::delete('/student/{id}',[SudentController::class, 'destory']);
