@@ -97,18 +97,15 @@ class SudentController extends Controller
 {
     try {
         $student = Student::findOrFail($id);
+        if (!$student) {
+            return response()->json('Student not found', 404);
+        }
         $student->delete();
 
-        return response()->json([
-            'message' => 'Student deleted successfully!',
-            'data' => $student,
-            
-        ]);
-    } catch (\Throwable $th) {
-        return response()->json([
-            'message' => 'Failed to delete student',
-            'error' => $th->getMessage(),
-        ], 500);
+        return response()->json($student, 200);
+    } catch (Exception $th) {
+        $errMsg = 'Error: ' . $th->getMessage();
+        return response()->json($errMsg, 500);
     }
 }
 
