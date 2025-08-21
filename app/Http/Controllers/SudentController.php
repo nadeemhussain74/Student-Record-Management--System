@@ -15,17 +15,9 @@ class SudentController extends Controller
     {
         
         try {
-            return response()->json([
-            ['id' => 1, 'first_name' => 'Rashid','last_name' => 'Ali'],
-           
-            ['id' => 2, 'first_name' => 'Adnam','last_name' => 'Ali'],
-            ['id' => 3, 'first_name' => 'Ishfaque','last_name' => 'Ali'],
-            ['id' => 4, 'first_name' => 'Zain','last_name' => 'Ali'],
-            ['id' => 5, 'first_name' => 'Zamin','last_name' => 'Ali'],
-            
-        ]);
-            // $studentList = Student::all();
-            // return response()->json($studentList, 200);
+       
+             $studentList = Student::all();
+             return response()->json($studentList, 200);
         } catch (Exception $th) {
             //throw $th;
         }
