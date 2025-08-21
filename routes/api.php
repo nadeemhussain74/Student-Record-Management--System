@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 Route::get('/getAllStudent',[SudentController::class, 'index']);
+Route::get('/getStudent/{id}',[SudentController::class, 'show']);
 Route::post('/saveStudent',[SudentController::class, 'store']);
 Route::put('/student/{id}',[SudentController::class, 'update']);
 Route::delete('/student/{id}',[SudentController::class, 'destory']);

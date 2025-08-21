@@ -51,15 +51,10 @@ class SudentController extends Controller
         try {
         $student = Student::findOrFail($id); // Try to find student by ID
 
-        return response()->json([
-            'message' => 'Student retrieved successfully!',
-            'data' => $student,
-        ]);
-    } catch (\Throwable $th) {
-        return response()->json([
-            'message' => 'Student not found',
-            'error' => $th->getMessage(),
-        ], 404);
+        return response()->json($student, 200);
+    } catch (Exception $ex) {
+        $errMsg = 'Error: ' . $ex->getMessage();
+        return response()->json($errMsg, 500);
     }
     }
 
